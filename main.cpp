@@ -21,7 +21,7 @@ bool isPalindrome(std::string& prefix){
 std::string processLine(std::string& line){
     int lineLength = line.length();
     if (lineLength == 0){
-        return "bruh\n";
+        return "";
     }
     std::string buffer;
     int palindromeLength = lineLength;
@@ -41,15 +41,22 @@ std::string processLine(std::string& line){
 
 int main(int argc, char* argv[]) {
     if (argc != 3){
-        std::cout << "Invalid input (X)\n";
+        std::cout << "Err.\n";
         return 1;
     }
+    int lineCounter = 1;
     std::ifstream inputFile(argv[1]);
     std::ofstream  outputFile(argv[2]);
     std::string line;
+    std::string result;
     while (std::getline(inputFile,line)){
-        std::cout << processLine(line);
+        result = processLine(line);
+        if (result.length() == 0){
+            printf("Invalid input (%d)\n",lineCounter);
+            return 0;
+        }
+        lineCounter++;
+        outputFile << result;
     }
-
     return 0;
 }
